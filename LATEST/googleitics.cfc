@@ -1,3 +1,21 @@
+<!---
+
+	Copyright 2009 Pete Alexandrou [pete@iclp.com.au]
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+		http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+--->
+
 <cfcomponent displayname="googleitics" hint="I perform various Google Analytics API calls to retrieve website metrics." output="false">
 
 	<cfset this.loginURL = "https://www.google.com/accounts/ClientLogin" />
@@ -316,7 +334,7 @@
 	        <cfhttpparam name="Email" type="url" value="#arguments.username#" />
 	        <cfhttpparam name="Passwd" type="url" value="#arguments.password#" />
 	        <cfhttpparam name="service" type="url" value="analytics" />
-	        <cfhttpparam name="source" type="url" value="ColdFusion-Googleitics-v3.5" />
+	        <cfhttpparam name="source" type="url" value="ColdFusion-googleitics-3.5" />
 	    </cfhttp>
 		<cfif NOT findNoCase("Auth=", cfhttp.fileContent)>
 			<cfset loginToken = "Authorization Failed" />
