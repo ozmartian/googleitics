@@ -18,6 +18,7 @@
 
 <cfcomponent displayname="googleitics" hint="I perform various Google Analytics API calls to retrieve website metrics." output="false">
 
+	<cfset this.version = "3.51" />
 	<cfset this.loginURL = "https://www.google.com/accounts/ClientLogin" />
 	<cfset this.accountsURL = "https://www.google.com/analytics/feeds/accounts/default" />
 	<cfset this.metricsURL = "https://www.google.com/analytics/feeds/data?" />
@@ -26,7 +27,7 @@
 
 	<!------------------------------------------------------[ init() ]------------------------------------------------------>
 
-	<cffunction name="init" access="public" returntype="googleitics" output="false" hint="I am the Googleitics constructor.">
+	<cffunction name="init" access="public" returntype="googleitics" output="false" hint="I am the googleitics constructor.">
 		<cfargument name="username" type="string" required="true" />
 		<cfargument name="password" type="string" required="true" />
 		<cfset variables.instance = structNew() />
@@ -60,16 +61,16 @@
 		<cfset var gaURL = this.metricsURL & "ids=ga:" & arguments.profileID & "&dimensions=" & arguments.dimensions & "&metrics=" & arguments.metrics & "&sort=" & arguments.sort & "&start-date=" & arguments.startDate & "&end-date=" & arguments.endDate />
 		<cfset xmlMetrics = callAPI(gaURL, variables.instance.loginToken) />
 		<cftry>
-			<cfset xmlMetrics = XMLParse(reReplaceNoCase(reReplaceNoCase(xmlMetrics, "(</?)(\w+:)", "\1", "ALL"), "<feed[^>]*>", "<feed>")) />
+			<cfset xmlMetrics = xmlParse(reReplaceNoCase(reReplaceNoCase(xmlMetrics, "(</?)(\w+:)", "\1", "ALL"), "<feed[^>]*>", "<feed>")) />
 			<cfif len(arguments.dimensions)>
-				<cfset aResults = XMLSearch(xmlMetrics, "//entry/") />
+				<cfset aResults = xmlSearch(xmlMetrics, "//entry/") />
 				<cfloop from="1" to="#arrayLen(aResults)#" index="counter">
 					<cfif aResults[counter].dimension.XmlAttributes["name"] eq "ga:date">
 						<cfset aDimensions[counter] = "#right(aResults[counter].dimension.XmlAttributes['value'], 2)#/#mid(aResults[counter].dimension.XmlAttributes['value'], 5, 2)#/#left(aResults[counter].dimension.XmlAttributes['value'], 4)#" />
 					<cfelse>
 						<cfset aDimensions[counter] = aResults[counter].dimension.XmlAttributes["value"] />
 					</cfif>
-					<cfset aValues = XMLSearch(aResults[counter], "metric") />
+					<cfset aValues = xmlSearch(aResults[counter], "metric") />
 					<cfloop from="1" to="#arrayLen(aValues)#" index="i">
 						<cfset stcMetrics[replaceNoCase(aValues[i].XmlAttributes["name"], "ga:", "")] = aValues[i].XmlAttributes["value"] />
 					</cfloop>
@@ -84,7 +85,7 @@
 					<cfset queryAddColumn(qMetrics, listGetAt(lNames, counter), aValues) />
 				</cfloop>
 			<cfelse>
-				<cfset aResults = XMLSearch(xmlMetrics, "//aggregates/") />
+				<cfset aResults = xmlSearch(xmlMetrics, "//aggregates/") />
 				<cfset aResults = aResults[1].XmlChildren />
 				<cfloop from="1" to="#arrayLen(aResults)#" index="counter">
 					<cfset queryAddColumn(qMetrics, replaceNoCase(aResults[counter].XmlAttributes["name"], "ga:", ""), listToArray(aResults[counter].XmlAttributes["value"])) />
@@ -118,7 +119,7 @@
 		<cfset var i = 0 />
 		<cfset var accountXML = callAPI(this.accountsURL, variables.instance.loginToken) />
 		<cfset accountXML = reReplaceNoCase(reReplaceNoCase(accountXML, "(</?)(\w+:)", "\1", "ALL"), "<feed[^>]*>", "<feed>") />
-		<cfset aEntries = XMLSearch(accountXML, "//entry/") />
+		<cfset aEntries = xmlSearch(accountXML, "//entry/") />
 		<cfloop from="1" to="#arrayLen(aEntries)#" index="num">
 			<cfset stcEntry = structNew() />
 			<cfset stcEntry.id = aEntries[num].id.XmlText />
@@ -334,7 +335,7 @@
 	        <cfhttpparam name="Email" type="url" value="#arguments.username#" />
 	        <cfhttpparam name="Passwd" type="url" value="#arguments.password#" />
 	        <cfhttpparam name="service" type="url" value="analytics" />
-	        <cfhttpparam name="source" type="url" value="ColdFusion-googleitics-3.5" />
+	        <cfhttpparam name="source" type="url" value="ColdFusion-googleitics-3.51" />
 	    </cfhttp>
 		<cfif NOT findNoCase("Auth=", cfhttp.fileContent)>
 			<cfset loginToken = "Authorization Failed" />
