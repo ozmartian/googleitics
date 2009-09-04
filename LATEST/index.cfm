@@ -19,14 +19,17 @@
 <cfsetting enablecfoutputonly="true" />
 
 
-<cfset username = "YOUR_GOOGLE_USERNAME" />
-<cfset password = "YOUR_GOOGLE_PASSWORD" />
-<cfset profileID = "YOUR_WEBSITE_PROFILE_ID" />
-<cfset mapsAPIKey = "YOUR_GOOGLE_MAPS_API_KEY" />
-
-<!--- array of 1 or more profileIDs for AnnotatedTimeLine example --->
-<!--- e.g. ["1234465","3244545","565464"] --->
-<cfset aProfileIDs = [  ] />
+<cfif fileExists(expandPath("_settings.cfm"))>
+	<cfinclude template="_settings.cfm" />
+<cfelse>
+	<cfset username = "YOUR_GOOGLE_USERNAME" />
+	<cfset password = "YOUR_GOOGLE_PASSWORD" />
+	<cfset profileID = "YOUR_WEBSITE_PROFILE_ID" />
+	<cfset mapsAPIKey = "YOUR_GOOGLE_MAPS_API_KEY" />
+	<cfset aProfileIDs = [  ] />
+	<!--- array of 1 or more profileIDs for AnnotatedTimeLine example --->
+	<!--- e.g. ["1234465","3244545","565464"] --->
+</cfif>
 
 <cfset startDate = "2009-04-01" />
 <cfset endDate = lsDateFormat(now(), "yyyy-mm-dd") />
