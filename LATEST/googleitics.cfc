@@ -320,7 +320,7 @@
 			<cfif counter eq 1>
 				<cfset queryAddColumn(qData, "Date", "varchar", listToArray(valueList(qMetrics.date))) />
 			</cfif>
-			<cfset queryAddColumn(qData, "S_" & replace(listFirst(this.stcProfiles[profileID].accountName, " "), ".", "", "ALL"), "integer", listToArray(valueList(qMetrics.visits))) />
+			<cfset queryAddColumn(qData, "S_" & replace(replace(replace(this.stcProfiles[profileID].title, ".", "", "ALL"), "|", "_", "ALL"), " ", "_", "ALL"), "integer", listToArray(valueList(qMetrics.visits))) />
 			<cfset counter++ />
 		</cfloop>
 		<cfset this.drawChart(qMetrics=qData, element=arguments.element, type="AnnotatedTimeLine") />
