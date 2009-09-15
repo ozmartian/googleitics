@@ -113,7 +113,6 @@
 					<td colspan="2"align="center"><cfdump var="#qMetrics#" label="[#oGA.stcProfiles[profileID].title#] General Metrics" /></td>
 				</tr>
 				<tr valign="top" align="center">
-					<!--- <td><cfdump var="#stcProfiles#" label="Google Analytics Profiles" /></td> --->
 					<td align="right">
 						<cfdump var="#qWeek#" label="[#oGA.stcProfiles[profileID].title#] Visits for Past Week" />
 						<br/>
