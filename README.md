@@ -1,3 +1,10 @@
+googleitics
+===========
+
+Whats this then? ColdFusion component wrapper for the Google Analytics API
+
+#PROJECT SUMMARY
+
 googleitics is a CFC providing charts and metrics for your website profiles at Google Analytics through API wrapper methods.
 
 All valid metrics can be retrieved with the option to group them by a dimension (see API Reference link below) e.g. browser, city, date etc. At this stage, only one dimension can be specified but this will change in future releases.
@@ -12,8 +19,7 @@ http://code.google.com/apis/analytics/docs/gdata/gdataReferenceDimensionsMetrics
 
 Feel free to contact me if you have a bug to report, would like features added or need help getting this to work.
 
-
--------------------[ UPDATES / NOTES ]-----------------------
+#UPDATES / NOTES
 
 ** minor bug fix applied to drawTimeLine() to resolve issues when website profile title's contain characters that cannot be used as query column headings.. this fix is only available via the Subversion trunk **
 
@@ -27,8 +33,7 @@ Feel free to contact me if you have a bug to report, would like features added o
 
 ** UPDATE: v2.0 includes Google Visualisation API charts **
 
-
-----------------------[ REQUIREMENTS ]-------------------------
+#REQUIREMENTS
 
 - ColdFusion MX, 7, 8, 9 and Railo 3+ (not tested on BlueDragon)
 
