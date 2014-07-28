@@ -1,7 +1,7 @@
 googleitics
 ===========
 
-**What is this then?* A ColdFusion component wrapper for the Google Analytics API...
+**What is this then?** A ColdFusion component wrapper for the Google Analytics API...
 
 ##Project Summary
 
